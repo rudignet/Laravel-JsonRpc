@@ -1,22 +1,19 @@
 
-
 To install this app:
 
-    1 - Require packages on composer.json "networkkings/jsonrpc": "*" (Dont't forget to add local repositiories key)
-    2 - Run 'php artisan config:publish networkkings/jsonrpc'
-    3 - Configure options in app/config/packages/networkkings/jsonrpc
-    4 - Add 'Networkkings\Jsonrpc\JsonRpcServiceProvider' to your providers array
-    5 - Optionally add 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade'
-
-
-    To add local repositories on composer.json insert this key on you project json file, / path is where composer.json is located
-
+    1 - Add this repository on your composer.json
     	"repositories": [
-    	  {
-    		"type": "artifact",
-    		"url": "../artifact-packages/"
-    	  }
+            {
+                "type": "vcs",
+                "url": "https://github.com/rudignet/Laravel-JsonRpc"
+            }
     	]
+    2 - Require packages on composer.json "networkkings/jsonrpc": "*"
+    3 - Run 'php artisan config:publish networkkings/jsonrpc'
+    4 - Configure options in app/config/packages/networkkings/jsonrpc
+    5 - Add 'Networkkings\Jsonrpc\JsonRpcServiceProvider' to your providers array
+    6 - Optionally add 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade'
+
 
 How to use
 
@@ -38,7 +35,7 @@ How to use
     Configuration
         server
             enabled => (bool) Enable or disable server webservice
-            prefix => (string) Where webservice is located, allways inside shopPrefix, default is /shop/api
-            methods => (array) Avaliable method on server
-            resolvers => (array) Array with resolverName => resolverTemplate, it replace {class} for the called class
+            prefix => (string) Route where webservice is located
+            methods => (array) Avaliable http methods on server (GET,POST,PUT,DELETE)
+            resolvers => (array) Array with resolverName => resolverTemplate, the resolver is a template, it replace {class} for the called class
             allowed => (array) Array with Ip/Mask => KEY for allowed clients, use localhost for local request,  example '192.168.1.1/32' => 'SECRETKEY'
