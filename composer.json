@@ -1,0 +1,24 @@
+{
+    "name": "networkkings/jsonrpc",
+    "description": "Cliente y servidor json rpc",
+    "version" : "0.1",
+    "authors": [
+        {
+            "name": "Carlos Mora",
+            "email": "ozonosp@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/controllers",
+            "src/models"
+        ],
+        "psr-0": {
+            "Networkkings\\Jsonrpc\\": "src/"
+        }
+    }
+}

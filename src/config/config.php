@@ -1,0 +1,12 @@
+<?php return array (
+  'server' => array(
+      'enabled' => true ,
+      'prefix' => '/jsonrpc', //URL for json server
+      'methods' => array('POST'),  //Allowed http methods to call the server
+      'resolvers' => array('default' => '\{class}Controller'), //ResolverName => resolverTemplate, {class} will be replaced by className (method is className.StaticFunctionName)
+      'allowed' => array(
+          'localhost' => '', //Ip and key, for localhost ip must be localhost, key can be blank or null
+          //'192.168.1.0/32' => '__KEY__'
+      )
+  )
+);
