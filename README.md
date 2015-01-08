@@ -8,7 +8,7 @@ To install this app:
                 "url": "https://github.com/rudignet/Laravel-JsonRpc"
             }
     	]
-    2 - Require packages on composer.json "networkkings/jsonrpc": "*"
+    2 - Require packages on composer.json "networkkings/jsonrpc": "*@dev"
     3 - Run 'php artisan config:publish networkkings/jsonrpc'
     4 - Configure options in app/config/packages/networkkings/jsonrpc
     5 - Add 'Networkkings\Jsonrpc\JsonRpcServiceProvider' to your providers array
