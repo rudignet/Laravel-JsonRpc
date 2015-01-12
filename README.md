@@ -36,5 +36,5 @@ How to use
     enabled => (bool) Enable or disable server webservice
     prefix => (string) Route where webservice is located
     methods => (array) Avaliable http methods on server (GET,POST,PUT,DELETE)
-    resolvers => (array) Array with resolverName => resolverTemplate, the resolver is a template, it replace {class} for the called class
+    resolvers => (array) Array with resolverName => resolverTemplate, the resolver is a template, it replace {class} for the called class, if you don't use {class} tag controller name will be fix
     allowed => (array) Array with Ip/Mask => KEY for allowed clients, use localhost for local request,  example '192.168.1.1/32' => 'SECRETKEY'
