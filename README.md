@@ -13,12 +13,15 @@ To install this app:
         3.1 - Run 'php artisan config:publish networkkings/jsonrpc'
         3.2 - Configure options in app/config/packages/networkkings/jsonrpc
         3.3 - Add 'Networkkings\Jsonrpc\JsonRpcServiceProvider' to your providers array
-    4 - Optionally add 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade' for use Jsonrpc as a shortcut
+    4 - Optionally add 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade' to your app.php aliases for use Jsonrpc as a shortcut
 
 
 How to use
+         A - if you have added 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade' on your app->aliases
+            $json = App::make('jsonrpc',array('server' => [Server_Url], 'http_method' => 'GET','key' => [Your_Secret_Key]));
+         B - If you haven't added Jsonrpc to your aliases
+            $json = new Networkkings\Jsonrpc\Jsonrpc([Server_Url],[GET or POST],[Your_Secret_Key]);
 
-        $json = App::make('jsonrpc',array('server' => $server, 'http_method' => 'GET','key' => $key)); //To get the jsonrpc object
         $json->send([Resolver],[Method],[Params])  //Resolver must be an existent configured resolver, Params must be an array
 
         Method must be called as ClassName.MethodName ,remote method must be static, you can change the default resolver in the config file

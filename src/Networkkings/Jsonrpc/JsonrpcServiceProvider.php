@@ -1,7 +1,8 @@
-<?php namespace Networkkings\Jsonrpc;
+<?php
+
+namespace Networkkings\Jsonrpc;
 
 use Illuminate\Support\ServiceProvider;
-
 
 class JsonrpcServiceProvider extends ServiceProvider {
 

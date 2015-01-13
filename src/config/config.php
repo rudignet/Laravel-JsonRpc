@@ -9,7 +9,7 @@
       ),
       'allowed' => array(
           'localhost' => '', //Ip and key, for localhost ip must be localhost, key can be blank or null
-          //'192.168.1.0/32' => '__KEY__'
+          //'192.168.1.0/24' => '__KEY__'
       )
   )
 );

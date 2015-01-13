@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: carlos
- * Date: 04/12/14
- * Time: 13:06
- */
 
 namespace Networkkings\Jsonrpc;
-
 
 class JsonResponse {
 

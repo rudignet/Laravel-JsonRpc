@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: carlos
- * Date: 04/12/14
- * Time: 11:58
- */
 
 namespace Networkkings\Jsonrpc;
 

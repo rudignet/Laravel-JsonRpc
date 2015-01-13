@@ -13,9 +13,9 @@ class Jsonrpc {
     protected $key;
     protected $curl;
 
-    public function __construct($server,$htp_method,$key){
+    public function __construct($server,$http_method,$key){
         $this->server = $server;
-        $this->htp_method = $htp_method;
+        $this->http_method = $http_method;
         $this->key = $key;
         $this->curl = curl_init();
     }
