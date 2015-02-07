@@ -15,8 +15,10 @@
     "autoload": {
         "classmap": [
             "src/controllers",
-            "src/models",
-            "src/Networkkings/Jsonrpc/"
-        ]
+            "src/models"
+        ],
+        "psr-0": {
+            "Networkkings\\Jsonrpc\\": "src/"
+        }
     }
 }
