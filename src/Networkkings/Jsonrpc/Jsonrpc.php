@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\View;
 class Jsonrpc {
 
     protected $server;
-    protected $htp_method;
+    protected $http_method;
     protected $key;
     protected $curl;
 
@@ -33,11 +33,11 @@ class Jsonrpc {
 
         $message = new JsonMessage($params,$method,$resolver); //Creamos un mensaje saliente
 
-        if($this->htp_method == 'POST'){
+        if($this->http_method == 'POST'){
             curl_setopt($this->curl, CURLOPT_HTTPGET, false); //Get query false
             curl_setopt($this->curl, CURLOPT_POST, true); //Post query
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, array()); //If not POST doesn't work
-        }else if($this->htp_method == 'GET'){
+        }else if($this->http_method == 'GET'){
             curl_setopt($this->curl, CURLOPT_POST, false); //Post query false
             curl_setopt($this->curl, CURLOPT_HTTPGET, true); //Get query
         }else
