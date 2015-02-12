@@ -35,7 +35,7 @@ class JsonServerController extends \Controller{
         $resolver = \Config::get("jsonrpc::config.server.resolvers.{$message->resolver}");
 
         if(empty($resolver)) //Comprobamos que el resolver existe
-            return JsonResponse::response(array(),null,false,400,"Resolver {$message->resolver} isn't assigned");
+            return JsonResponse::response(array(),null,false,400,"Resolver {$message->resolver} is not assigned");
 
         list($class,$method) = explode('.',$message->method,2); //Obtenemos la clase y el método
         $class = str_replace('{class}',$class,$resolver); //Obtenemos la clase a la que debemos llamar según el resolver configurado
