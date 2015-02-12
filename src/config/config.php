@@ -1,6 +1,6 @@
 <?php return array (
   'server' => array(
-      'enabled' => true ,
+      'enabled' => false,
       'prefix' => '/jsonrpc', //URL for json server
       'methods' => array('POST'),  //Allowed http methods to call the server
       'resolvers' => array(

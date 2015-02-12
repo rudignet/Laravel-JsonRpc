@@ -18,7 +18,7 @@ class JsonServerController extends \Controller{
             return JsonResponse::response(array(),null,false,400,'Method '.\Input::getMethod().' is not allowed');
 
         if(!$this->allowedIp()) //Comprobamos que la ip esta autorizada
-            return JsonResponse::response(array(),null,false,403,'Not allowed');
+            return JsonResponse::response(array(),null,false,403,'Remote IP not allowed');
 
         if(!is_object($message = JsonMessage::getFromInput(\Input::all(),$this->key))){ //Si la decodificación del mensaje no devuelve un objeto hay un error
             if($message == 400)

@@ -23,6 +23,7 @@ How to use
             $json = new Networkkings\Jsonrpc\Jsonrpc([Server_Url],[GET or POST],[Your_Secret_Key]);
 
         $json->send([Resolver],[Method],[Params])  //Resolver must be an existent configured resolver, Params must be an array
+        $json->send returns a JsonResponse object
 
         Method must be called as ClassName.MethodName ,remote method must be static, you can change the default resolver in the config file
         Default resolver is \{class}Controller if you call Test.foo you are calling \TestController::foo($param1,$param2...) because {class} is replaced by ClassName
