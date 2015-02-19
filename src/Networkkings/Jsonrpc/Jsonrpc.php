@@ -36,14 +36,15 @@ class Jsonrpc {
         if($this->http_method == 'POST'){
             curl_setopt($this->curl, CURLOPT_HTTPGET, false); //Get query false
             curl_setopt($this->curl, CURLOPT_POST, true); //Post query
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, array()); //If not POST doesn't work
+            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $message->getQueryString($this->key,true));
+            curl_setopt($this->curl, CURLOPT_URL, $this->server); //Set complete url
         }else if($this->http_method == 'GET'){
             curl_setopt($this->curl, CURLOPT_POST, false); //Post query false
             curl_setopt($this->curl, CURLOPT_HTTPGET, true); //Get query
+            curl_setopt($this->curl, CURLOPT_URL, "$this->server?".$message->getQueryString($this->key,false)); //Url for get method
         }else
             throw new \Exception('Http method not setted');
 
-        curl_setopt($this->curl, CURLOPT_URL, "{$this->server}?".$message->getQueryString($this->key)); //Set complete url
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);  // Return transfer as string
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 

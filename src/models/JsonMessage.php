@@ -44,12 +44,17 @@ class JsonMessage {
     /**
      * Returns a query string to curl
      * @param $key
+     * @param $post = true, post or get query string
      * @return string
      */
-    public function getQueryString($key){
+    public function getQueryString($key,$post){
         $params = json_encode($this->params);
         $sign = !empty($key) ? md5($params.$this->method.$this->resolver.$key) : null;
-        return "params=$params&method={$this->method}&resolver={$this->resolver}&sign=$sign";
+
+        if($post)
+            return json_encode(['params' => $params, 'method' => $this->method, 'resolver' => $this->resolver, 'sign' => $sign]);
+        else
+            return "params=$params&method={$this->method}&resolver={$this->resolver}&sign=$sign";
     }
 
 
