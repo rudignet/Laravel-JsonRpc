@@ -14,10 +14,6 @@
         "illuminate/routing": "5.0.*"
     },
     "autoload": {
-        "classmap": [
-            "src/controllers",
-            "src/models"
-        ],
         "psr-4": {
             "Lucid\\Jsonrpc\\": "src/"
         }
