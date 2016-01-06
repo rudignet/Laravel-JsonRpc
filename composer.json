@@ -1,11 +1,11 @@
 {
-    "name": "networkkings/jsonrpc",
+    "name": "lucidnetworks/jsonrpc",
     "description": "Cliente y servidor json rpc",
     "version" : "0.1",
     "authors": [
         {
-            "name": "Carlos Mora",
-            "email": "ozonosp@gmail.com"
+            "name": "Lucid Networks",
+            "email":"admin@lucidnetworks.eu"
         }
     ],
     "require": {
@@ -17,8 +17,8 @@
             "src/controllers",
             "src/models"
         ],
-        "psr-0": {
-            "Networkkings\\Jsonrpc\\": "src/"
+        "psr-4": {
+            "Lucid\\Jsonrpc\\": "src/"
         }
     }
 }
