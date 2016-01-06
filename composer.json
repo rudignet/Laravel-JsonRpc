@@ -1,7 +1,7 @@
 {
     "name": "lucidnetworks/jsonrpc",
     "description": "Cliente y servidor json rpc",
-    "version" : "0.1",
+    "version" : "1.0",
     "authors": [
         {
             "name": "Lucid Networks",
