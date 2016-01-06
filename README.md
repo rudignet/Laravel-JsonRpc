@@ -1,20 +1,20 @@
 
 To install this app:
 
-    1 - Copy the project into a folder and add "Networkkings\\Jsonrpc\\": "folderName/networkkings/jsonrpc/src/" to your composer.json => psr-4
+    1 - Include "lucidnetworks/jsonrpc"  on your require composer.json
 
     3 - If you want activate the server
-        3.1 - Run 'php artisan vendor:publish networkkings/jsonrpc' ?????
+        3.1 - Run 'php artisan vendor:publish lucidnetworks/jsonrpc' ?????
         3.2 - Configure options in config/jsonrpc
-        3.3 - Add 'Networkkings\Jsonrpc\JsonrpcServiceProvider' to your providers array
-    4 - Optionally add 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade' to your app.php aliases for use Jsonrpc as a shortcut
+        3.3 - Add Lucid\Jsonrpc\JsonrpcServiceProvider::class to your providers array
+    4 - Optionally add 'Jsonrpc' => Lucid\Jsonrpc\JsonrpcFacade::class to your app.php aliases for use Jsonrpc as a shortcut
 
 
 How to use
-         A - if you have added 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade' on your app->aliases
+         A - if you have added 'Jsonrpc' => Lucid\Jsonrpc\JsonrpcFacade::class on your app->aliases
             $json = App::make('jsonrpc',array('server' => [Server_Url], 'http_method' => 'GET','key' => [Your_Secret_Key]));
          B - If you haven't added Jsonrpc to your aliases
-            $json = new Networkkings\Jsonrpc\Jsonrpc([Server_Url],[GET or POST],[Your_Secret_Key]);
+            $json = new Lucid\Jsonrpc\Jsonrpc([Server_Url],[GET or POST],[Your_Secret_Key]);
 
         $json->send([Resolver],[Method],[Params])  //Resolver must be an existent configured resolver, Params must be an array
         $json->send returns a JsonResponse object
