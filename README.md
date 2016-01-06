@@ -1,7 +1,7 @@
 
 To install this app:
 
-    1 - Include "lucidnetworks/jsonrpc"  on your require composer.json
+    1 - Include "lucidnetworks/jsonrpc": "1.*" on your require composer.json
 
     3 - If you want activate the server
         3.1 - Run 'php artisan vendor:publish lucidnetworks/jsonrpc' ?????
