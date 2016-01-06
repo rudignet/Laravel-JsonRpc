@@ -1,6 +1,6 @@
 <?php
 
-namespace Networkkings\Jsonrpc;
+namespace Lucid\Jsonrpc;
 
 use Illuminate\Support\Facades\Facade;
 

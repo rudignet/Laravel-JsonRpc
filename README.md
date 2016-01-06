@@ -1,18 +1,12 @@
 
 To install this app:
 
-    1 - Add this repository on your composer.json
-    	"repositories": [
-            {
-                "type": "vcs",
-                "url": "https://github.com/rudignet/Laravel-JsonRpc"
-            }
-    	]
-    2 - Require packages on composer.json "networkkings/jsonrpc": "*@dev"
+    1 - Copy the project into a folder and add "Networkkings\\Jsonrpc\\": "folderName/networkkings/jsonrpc/src/" to your composer.json => psr-4
+
     3 - If you want activate the server
-        3.1 - Run 'php artisan config:publish networkkings/jsonrpc'
-        3.2 - Configure options in app/config/packages/networkkings/jsonrpc
-        3.3 - Add 'Networkkings\Jsonrpc\JsonRpcServiceProvider' to your providers array
+        3.1 - Run 'php artisan vendor:publish networkkings/jsonrpc' ?????
+        3.2 - Configure options in config/jsonrpc
+        3.3 - Add 'Networkkings\Jsonrpc\JsonrpcServiceProvider' to your providers array
     4 - Optionally add 'Jsonrpc' => 'Networkkings\Jsonrpc\JsonrpcFacade' to your app.php aliases for use Jsonrpc as a shortcut
 
 
@@ -28,11 +22,6 @@ How to use
         Method must be called as ClassName.MethodName ,remote method must be static, you can change the default resolver in the config file
         Default resolver is \{class}Controller if you call Test.foo you are calling \TestController::foo($param1,$param2...) because {class} is replaced by ClassName
         You can create your custom resolvers on the config file to point where you want
-
-[Namespaces]
-
-    Config
-        jsonrpc => Config files
 
 
 [Configuration file (For server)]

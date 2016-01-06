@@ -1,6 +1,6 @@
 <?php
 
-namespace Networkkings\Jsonrpc;
+namespace Lucid\Jsonrpc\Models;
 
 class JsonMessage {
 

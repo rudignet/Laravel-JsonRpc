@@ -1,53 +1,55 @@
 <?php
 
 namespace Lucid\Jsonrpc;
-use Lucid\Jsonrpc\Models\JsonResponse;
-use Lucid\Jsonrpc\Models\JsonMessage;
 
-class JsonServerController extends \Controller{
+use Illuminate\Routing\Controller;
+
+class JsonServerController extends Controller{
 
     protected $input;
     protected $key;
+    protected $exceptionPrefix = 'JsonRpc Server error';
 
     /**
      * Respond any request
      * @return \Illuminate\Http\JsonResponse
      */
     public function anyIndex(){
-        if(!in_array(\Input::getMethod(),\Config::get('jsonrpc::config.server.methods'))) //Comprobamos que el método recibido es válido
-            return JsonResponse::response(array(),null,false,400,'Method '.\Input::getMethod().' is not allowed');
+
+        if(!in_array(\Input::getMethod(),\Config::get('jsonrpc.server.methods'))) //Comprobamos que el método recibido es válido
+            return Models\JsonResponse::response(array(),null,false,400,$this->exceptionPrefix.' - Method '.\Input::getMethod().' is not allowed');
 
         if(!$this->allowedIp()) //Comprobamos que la ip esta autorizada
-            return JsonResponse::response(array(),null,false,403,'Remote IP '.\Request::getClientIp().' not allowed');
+            return Models\JsonResponse::response(array(),null,false,403,$this->exceptionPrefix.' - Remote IP '.\Request::getClientIp().' not allowed');
 
-        if(!is_object($message = JsonMessage::getFromInput(\Input::all(),$this->key))){ //Si la decodificación del mensaje no devuelve un objeto hay un error
+        if(!is_object($message = Models\JsonMessage::getFromInput(\Input::all(),$this->key))){ //Si la decodificación del mensaje no devuelve un objeto hay un error
             if($message == 400)
-                return JsonResponse::response(array(),null,false,$message,'Bad request structure');
+                return Models\JsonResponse::response(array(),null,false,$message,$this->exceptionPrefix.' - Bad request structure');
             if($message == 403)
-                return JsonResponse::response(array(),null,false,$message,'Bad message sign');
+                return Models\JsonResponse::response(array(),null,false,$message,$this->exceptionPrefix.' - Bad message sign');
             else
-                return JsonResponse::response(array(),null,false,$message,'Undefined Error');
+                return Models\JsonResponse::response(array(),null,false,$message,$this->exceptionPrefix.' - Undefined Error');
         }
 
         if(!strpos($message->method,'.')) //Method debe estar compuesto por className.Methodo
-            return JsonResponse::response(array(),null,false,400,'Bad method name');
+            return Models\JsonResponse::response(array(),null,false,400,$this->exceptionPrefix.' - Bad method name');
 
-        $resolver = \Config::get("jsonrpc::config.server.resolvers.{$message->resolver}");
+        $resolver = \Config::get("jsonrpc.server.resolvers.{$message->resolver}");
 
         if(empty($resolver)) //Comprobamos que el resolver existe
-            return JsonResponse::response(array(),null,false,400,"Resolver {$message->resolver} is not assigned");
+            return Models\JsonResponse::response(array(),null,false,400,$this->exceptionPrefix." - Resolver {$message->resolver} is not assigned");
 
         list($class,$method) = explode('.',$message->method,2); //Obtenemos la clase y el método
         $class = str_replace('{class}',$class,$resolver); //Obtenemos la clase a la que debemos llamar según el resolver configurado
 
-        if(!class_exists($class)) //COmprobamos que la clase existe
-            return JsonResponse::response(array(),null,false,501,"Class $class doesn't exist");
+        if(!class_exists($class)) //Comprobamos que la clase existe
+            return Models\JsonResponse::response(array(),null,false,501,$this->exceptionPrefix." - Class $class doesn't exist");
 
         try{ //Intentamos llamar al método estático solicitado
             $funcResponse = call_user_func_array ("$class::$method", $message->params);
-            return JsonResponse::response($funcResponse,$this->key,true,200);
+            return Models\JsonResponse::response($funcResponse,$this->key,true,200);
         }catch(\Exception $e){
-            return JsonResponse::response(array(),null,false,500,$e->getMessage());
+            return Models\JsonResponse::response(array(),null,false,500,$this->exceptionPrefix.' - '.$e->getMessage());
         }
 
     }
@@ -58,7 +60,7 @@ class JsonServerController extends \Controller{
      */
     private function allowedIp(){
         $clientIp = \Request::getClientIp();
-        $allowedArr = \Config::get('jsonrpc::config.server.allowed');
+        $allowedArr = \Config::get('jsonrpc.server.allowed');
         $valid = false;
 
         if($clientIp == '::1' && isset($allowedArr['localhost'])){ //Si estamos ejecutando desde el mismo servidor comprobamos si está habilitado localhost

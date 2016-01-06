@@ -1,10 +1,8 @@
 <?php
 
-namespace Networkkings\Jsonrpc;
-
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\View;
+namespace Lucid\Jsonrpc;
+use Lucid\Jsonrpc\Models\JsonResponse;
+use Lucid\Jsonrpc\Models\JsonMessage;
 
 class Jsonrpc {
 
@@ -12,6 +10,7 @@ class Jsonrpc {
     protected $http_method;
     protected $key;
     protected $curl;
+    private $exceptionPrefix = 'JsonRpc Server error';
 
     public function __construct($server,$http_method,$key){
         $this->server = $server;
@@ -26,7 +25,7 @@ class Jsonrpc {
      * @param $resolver
      * @param $method string MethodName
      * @param $params array Parameters
-     * @return JsonResponse
+     * @return Models\JsonResponse
      * @throws \Exception
      */
     public function send($resolver = 'default' ,$method ,array $params = array()){
@@ -43,7 +42,7 @@ class Jsonrpc {
             curl_setopt($this->curl, CURLOPT_HTTPGET, true); //Get query
             curl_setopt($this->curl, CURLOPT_URL, "$this->server?".$message->getQueryString($this->key,false)); //Url for get method
         }else
-            throw new \Exception('Http method not setted');
+            throw new \Exception($this->exceptionPrefix.' - Http method not setted');
 
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);  // Return transfer as string
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -52,13 +51,13 @@ class Jsonrpc {
         $response = curl_exec($this->curl);
 
         if(false === $response) //Si el resultado no ha sido válido devolvemos una respuesta incorrecta
-            return JsonResponse::getInstance(null, false, 500, "Curl error $response", null);
+            return JsonResponse::getInstance(null, false, 500, $this->exceptionPrefix." - Curl error ".htmlspecialchars($response), null);
 
         //Trying to decode json string from curl
         $responseArr = json_decode($response, true);
 
         if(null === $responseArr) //Si el json no se ha podido descodificar devolvemos una respuesta incorrecta
-            return JsonResponse::getInstance(null, false, 417, "Unknown response: $response", null);
+            return JsonResponse::getInstance(null, false, 417, $this->exceptionPrefix." - Unknown response: ".htmlspecialchars($response), null);
 
         return JsonResponse::getFromInput($responseArr,$this->key); //Reconstruimos el mensaje recibido
     }
