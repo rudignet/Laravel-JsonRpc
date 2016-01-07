@@ -4,9 +4,9 @@ To install this app:
     1 - Include "lucidnetworks/jsonrpc": "dev-master" on your require composer.json
 
     3 - If you want activate the server
-        3.1 - Run 'php artisan vendor:publish lucidnetworks/jsonrpc'
-        3.2 - Configure options in config/jsonrpc
-        3.3 - Add Lucid\Jsonrpc\JsonrpcServiceProvider::class to your providers array
+        3.1 - Add Lucid\Jsonrpc\JsonrpcServiceProvider::class to your providers array
+        3.2 - Run 'php artisan vendor:publish
+        3.3 - Configure options in config/jsonrpc
     4 - Optionally add 'Jsonrpc' => Lucid\Jsonrpc\JsonrpcFacade::class to your app.php aliases for use Jsonrpc as a shortcut
 
 
